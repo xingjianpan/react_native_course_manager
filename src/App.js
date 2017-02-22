@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleWare } from 'redux';
 import { View } from 'react-native';
+import ReduxThunk from 'redux-thunk';
 import * as wilddog from 'wilddog';
 import reducers from './reducers';
 import LoginForm from './components/LoginForm';
@@ -15,8 +16,9 @@ class App extends Component {
   }
 
   render() {
+    const store = createStore(reducers, {}, applyMiddleWare(ReduxThunk));
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         <View>
           <LoginForm />
         </View>

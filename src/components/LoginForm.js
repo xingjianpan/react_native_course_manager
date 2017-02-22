@@ -17,7 +17,9 @@ class LoginForm extends Component {
   }
 
   onButtonPress() {
-    console.log('pressed');
+    // call action creator
+    const { email, password } = this.props.auth;
+    this.props.authUser({ email, password });
   }
 
   renderButton() {
