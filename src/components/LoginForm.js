@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Text } from 'react-native';
 import { Card, CardSection, Input, Spinner, Button } from './common';
 import * as actions from '../actions';
 
@@ -21,6 +22,13 @@ class LoginForm extends Component {
     );
   }
 
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
   render() {
     const { email,
             password,
@@ -35,7 +43,7 @@ class LoginForm extends Component {
             placeholder="user@gmail.com"
             label="Email"
             value={email}
-            onChangeText={ onChangeUserName() }
+            onChangeText={this.onEmailChange.bind(this)}
           />
 
         </CardSection>
@@ -47,7 +55,7 @@ class LoginForm extends Component {
             placeholder="password"
             label="Passwod"
             value={password}
-            onChangeText={ onChangePassword() }
+            onChangeText={this.onPasswordChange.bind(this)}
           />
         </CardSection>
 

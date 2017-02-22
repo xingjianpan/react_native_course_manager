@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth_reducer';
+import AuthReducer from './AuthReducer';
 
 export default combineReducers({
-  banana: () => [],
-  auth: authReducer,
+  auth: AuthReducer,
 });
