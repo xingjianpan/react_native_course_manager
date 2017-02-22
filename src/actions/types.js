@@ -5,3 +5,4 @@ export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
 export const SIGN_UP = 'signup';
+export const BEGIN_AUTH_USER = 'begin_auth_user';

@@ -26,7 +26,7 @@ class LoginForm extends Component {
     const { loading } = this.props.auth;
 
     if (loading) {
-      return <Spinner size="small" />;
+      return <Spinner />;
     }
 
     return (

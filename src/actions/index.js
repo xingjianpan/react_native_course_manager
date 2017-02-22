@@ -5,6 +5,7 @@ const ROOT_URL = 'http://123.56.168.1:3090'
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
+  BEGIN_AUTH_USER,
   AUTH_ERROR,
   AUTH_USER,
   UNAUTH_USER,
@@ -34,6 +35,7 @@ export const authError = (error) => {
 
 export const signupUser = ({ email, password }) => {
   return (dispatch) => {
+
     axios.post(`${ROOT_URL}/signup`, { email, password })
       .then(response=> {
         // if request is good
@@ -55,6 +57,7 @@ export const signupUser = ({ email, password }) => {
 
 export const signinUser = ({ email, password }) => {
   return (dispatch) => {
+    dispatch({ type: BEGIN_AUTH_USER });
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
         // console.log(response);
