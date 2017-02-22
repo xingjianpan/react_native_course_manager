@@ -82,9 +82,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  return ({
+  return {
     auth: state.auth,
-  });
+  };
 };
 
 export default connect(mapStateToProps, actions)(LoginForm);
