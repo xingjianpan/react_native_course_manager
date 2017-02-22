@@ -19,7 +19,7 @@ class LoginForm extends Component {
   onButtonPress() {
     // call action creator
     const { email, password } = this.props.auth;
-    this.props.loginUser({ email, password });
+    this.props.signinUser({ email, password });
   }
 
   renderButton() {
@@ -37,7 +37,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { email, password } = this.props.auth;
+    const { email, password, error } = this.props.auth;
 
     return (
       <Card>
@@ -63,7 +63,7 @@ class LoginForm extends Component {
         </CardSection>
 
         <Text style={styles.errorTextStyle}>
-          {this.state.error}
+          {error}
         </Text>
 
         <CardSection>

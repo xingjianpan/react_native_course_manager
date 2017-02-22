@@ -2,7 +2,9 @@ import * as wilddog from 'wilddog';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  AUTH_USER,
+  SIGNIN_USER,
+  SIGNIN_USER_SUCCESS,
+  SIGNIN_USER_FAIL,
   AUTH_ERROR,
 } from './types';
 
@@ -27,16 +29,26 @@ export function authError(error) {
   };
 }
 
-
-export const loginUser = ({ email, password }) => {
+export const signinUser = ({ email, password }) => {
   return (dispatch) => {
+    dispatch({ type: SIGNIN_USER });
     wilddog.auth().signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        dispatch({ type: AUTH_USER, payload: user });
-      })
+      .then(user => signinUserSuccess(dispatch, user))
       .catch(() => {
-        dispatch(authError('Login Failed.'));
+        wilddog.auth().createUserWithEmailAndPassword(email, password)
+          .then(user => signinUserSuccess(dispatch, user))
+          .catch(() => signinUserFail(dispatch));
       });
   };
 };
 
+const signinUserFail = (dispatch) => {
+  dispatch({ type: SIGNIN_USER_FAIL });
+};
+
+const signinUserSuccess = (dispatch, user) => {
+  dispatch({
+    type: SIGNIN_USER_SUCCESS,
+    payload: user,
+  });
+};
