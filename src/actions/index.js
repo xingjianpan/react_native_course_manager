@@ -1,11 +1,13 @@
-import * as wilddog from 'wilddog';
+import axios from 'axios';
+
+const ROOT_URL = 'http://123.56.168.1:3090'
+
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  SIGNIN_USER,
-  SIGNIN_USER_SUCCESS,
-  SIGNIN_USER_FAIL,
   AUTH_ERROR,
+  AUTH_USER,
+  UNAUTH_USER,
 } from './types';
 
 export const emailChanged = (text) => {
@@ -22,33 +24,58 @@ export const passwordChanged = (text) => {
   };
 };
 
-export function authError(error) {
+export const authError = (error) => {
   return {
     type: AUTH_ERROR,
     payload: error,
   };
-}
+};
+
+
+export const signupUser = ({ email, password }) => {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password })
+      .then(response=> {
+        // if request is good
+        // - update state to indicate user is authenticated
+        dispatch({ type: AUTH_USER });
+        // - save the JWT token, use localstorage
+        // TODO
+        // - redirect to the route /feature
+        // TODO
+      })
+      .catch(error => {
+        dispatch(authError(error.response.data.error));
+      }
+        // if request is bad
+        // - Show an error to the user
+      );
+  };
+};
 
 export const signinUser = ({ email, password }) => {
   return (dispatch) => {
-    dispatch({ type: SIGNIN_USER });
-    wilddog.auth().signInWithEmailAndPassword(email, password)
-      .then(user => signinUserSuccess(dispatch, user))
-      .catch(() => {
-        wilddog.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => signinUserSuccess(dispatch, user))
-          .catch(() => signinUserFail(dispatch));
+    axios.post(`${ROOT_URL}/signin`, { email, password })
+      .then(response => {
+        // console.log(response);
+        dispatch({ type: AUTH_USER });
+        // - save the JWT token, use localstorage
+        // TODO
+        // - redirect to the route /feature
+        // TODO
+      })
+      .catch((error) => {
+        // if request is bad
+        // - Show an error to the user
+        dispatch(authError('Bad Login Info'));
       });
   };
 };
 
-const signinUserFail = (dispatch) => {
-  dispatch({ type: SIGNIN_USER_FAIL });
-};
 
-const signinUserSuccess = (dispatch, user) => {
-  dispatch({
-    type: SIGNIN_USER_SUCCESS,
-    payload: user,
-  });
+export const signoutUser = () => {
+  // localStorage.removeItem('token')
+  return {
+    type: UNAUTH_USER,
+  };
 };
