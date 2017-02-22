@@ -25,7 +25,7 @@ export default function (state = INITIAL_STATE, action) {
     case SIGNIN_USER:
       return { ...state, loading: true, error: '' };
     case SIGNIN_USER_SUCCESS:
-      return { ...state, user: action.payload, error: '', loading: false };
+      return { ...state, ...INITIAL_STATE, user: action.payload };
     case SIGNIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed', password: '', loading: false };
     case AUTH_ERROR:
