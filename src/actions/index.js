@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as wilddog from 'wilddog';
 import {
   EMAIL_CHANGED,
@@ -35,7 +34,7 @@ export const loginUser = ({ email, password }) => {
       .then((user) => {
         dispatch({ type: AUTH_USER, payload: user });
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(authError('Login Failed.'));
       });
   };
