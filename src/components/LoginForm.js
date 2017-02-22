@@ -6,35 +6,36 @@ import * as actions from '../actions';
 
 class LoginForm extends Component {
 
+  onEmailChange(text) {
+    // call action creator
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+    // call action creator
+    this.props.passwordChanged(text);
+  }
+
+  onButtonPress() {
+    console.log('pressed');
+  }
+
   renderButton() {
-    const { loading,
-            onButtonPress,
-             } = this.props.auth;
+    const { loading } = this.props.auth;
 
     if (loading) {
       return <Spinner size="small" />;
     }
 
     return (
-      <Button onPress={ onButtonPress }>
+      <Button onPress={this.onButtonPress.bind(this)}>
       Login
       </Button>
     );
   }
 
-  onEmailChange(text) {
-    this.props.emailChanged(text);
-  }
-
-  onPasswordChange(text) {
-    this.props.passwordChanged(text);
-  }
   render() {
-    const { email,
-            password,
-            onChangeUserName,
-            onChangePassword,
-             } = this.props.auth;
+    const { email, password } = this.props.auth;
 
     return (
       <Card>
@@ -80,7 +81,7 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return ({
     auth: state.auth,
   });
