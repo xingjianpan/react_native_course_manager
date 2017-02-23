@@ -7,3 +7,4 @@ export const AUTH_ERROR = 'auth_error';
 export const SIGN_UP = 'signup';
 export const BEGIN_AUTH_USER = 'begin_auth_user';
 export const EMPLOYEE_UPDATE = 'employee_update';
+export const EMPLOYEE_CREATE = 'employee_create';
