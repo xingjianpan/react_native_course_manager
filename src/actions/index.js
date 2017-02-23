@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 
 const ROOT_URL = 'http://123.56.168.1:3090'
 
@@ -65,7 +66,7 @@ export const signinUser = ({ email, password }) => {
         // - save the JWT token, use localstorage
         // TODO
         // - redirect to the route /feature
-        // TODO
+        Actions.employeeList();
       })
       .catch((error) => {
         // if request is bad
