@@ -1,4 +1,4 @@
-import * as wilddog from 'wilddog';
+import   wilddog from 'wilddog';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
